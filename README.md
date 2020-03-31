@@ -20,6 +20,7 @@ linux下暂未测试
 
 //将堆使用内存信息输出至文件
 void OutHeapMemoryInfoToFile(const char* szFileName);
+
 void OutHeapMemoryInfoToConsole();
 
 tcmalloc库:https://github.com/gperftools/gperftools
