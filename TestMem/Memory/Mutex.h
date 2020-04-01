@@ -6,6 +6,8 @@
 #include <windows.h>
 #include <MMsystem.h>
 #pragma comment(lib,"winmm.lib")
+#else
+#include <pthread.h>
 #endif
 
 class CCriticalSectionImp
