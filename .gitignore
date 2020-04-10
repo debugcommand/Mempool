@@ -1,0 +1,5 @@
+﻿.vs
+*.user
+/Temp
+*.exe
+/library
