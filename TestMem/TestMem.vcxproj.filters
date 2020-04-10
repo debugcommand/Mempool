@@ -41,5 +41,8 @@
     <ClInclude Include="Memory\malloc.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="Memory\circularbuffer.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

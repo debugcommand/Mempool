@@ -6,7 +6,7 @@ Abstract:
 	警告: TObject_pool只为类设计使用,所以并不需要连续内存块
 	所以严禁一次性new出数组,像这样是被严格禁止的:
 
-	class TestObject : public NCCommon::TObject_pool<TestObject>
+	class TestObject : public MPool::TObject_pool<TestObject>
 	new TestObject [xxx]
 
 	正确使用方式:
@@ -16,14 +16,14 @@ Abstract:
 	}
 
 	而TAllocator则允许一次性分配连续的内存块：
-	NCCommon::TAllocator<TestObject> Allocator;
+	MPool::TAllocator<TestObject> Allocator;
 	TestObject* p = Allocator(100);
 	等同于:
 	TestObject* p = new TestObject[100];
 */
 
-#ifndef __MENETWORKCORE_MEMORY_POOL_H__
-#define __MENETWORKCORE_MEMORY_POOL_H__
+#ifndef __MEMORY_POOL_H__
+#define __MEMORY_POOL_H__
 
 #pragma once
 #include <memory>
@@ -83,4 +83,4 @@ namespace MPool
 #define NEW_POOL( className ) \
     className::CreateInstance();
 
-#endif // __MENETWORKCORE_MEMORY_POOL_H__ 
+#endif // __MEMORY_POOL_H__ 

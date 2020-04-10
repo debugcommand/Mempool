@@ -7,6 +7,8 @@
 #include <psapi.h>
 #include "Memory/Memory_Pool.h"
 #include <MMSystem.h>
+#include "Memory/circularbuffer.h"
+
 #pragma comment(lib,"psapi.lib")
 #pragma comment(lib,"winmm.lib")
 using namespace std;
@@ -47,6 +49,11 @@ public:
     }
     //DECLARE_POOL_FUNC(Myclass2);
 
+    void Inc(int num) {
+        n = num;
+        m = num;
+    }
+
     char* pCh;
     int n;
     int m;
@@ -86,6 +93,7 @@ int main()
     }
     curT = timeGetTime();
     cout << "pool release cost:" << curT - startT << endl;
+    //
     startT = timeGetTime();
     cout << "new:" << startT << endl;
     for (size_t i = 0; i < MYC_COUNT; i++)
@@ -102,6 +110,7 @@ int main()
     }
     curT = timeGetTime();
     cout << "delete cost:" << curT - startT << endl;
+    //
     startT = timeGetTime();
     cout << "tc new:" << startT << endl;
     for (size_t i = 0; i < MYC_COUNT; i++)
@@ -118,6 +127,32 @@ int main()
     }
     curT = timeGetTime();
     cout << "tc delete cost:" << curT - startT << endl;
+    //
+    int class2_size = sizeof(Myclass2);
+    Myclass2 mc2;
+    CircularBuffer circularbuf_(MYC_COUNT*class2_size+1);
+    startT = timeGetTime();
+    cout << "write buffer:" << startT << endl;
+    for (size_t i = 0; i < MYC_COUNT+1; i++)
+    {
+        mc2.Inc(i);
+        if (circularbuf_.write((char*)&mc2, class2_size) <= 0) {
+            printf("write error!\n");
+        }
+    }
+    curT = timeGetTime();
+    cout << "write buffer cost:" << curT - startT << endl;
+    Myclass2* pMc2 = new Myclass2();
+    startT = timeGetTime();
+    cout << "read buffer:" << startT << endl;
+    for (size_t i = 0; i < MYC_COUNT+1; i++)
+    {
+        if (circularbuf_.read((char*)pMc2, class2_size) <= 0) {
+            printf("read error!\n");
+        }
+    }
+    curT = timeGetTime();
+    cout << "read buffer cost:" << curT - startT << endl;    
     //////////////////////////////////////////////////
     while (1)
     {

@@ -111,6 +111,11 @@
       <AdditionalDependencies>libtcmalloc_minimal.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ForceSymbolReferences>__tcmalloc</ForceSymbolReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(ProjectDir)..\bin\"
+xcopy/AFRSY "$(TargetPath)" "$(ProjectDir)..\bin\"
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -153,6 +158,11 @@
       <ForceSymbolReferences>__tcmalloc</ForceSymbolReferences>
       <AdditionalDependencies>libtcmalloc_minimal.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(ProjectDir)..\bin\"
+xcopy/AFRSY "$(TargetPath)" "$(ProjectDir)..\bin\"
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -183,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory\BlockStore.h" />
+    <ClInclude Include="Memory\circularbuffer.h" />
     <ClInclude Include="Memory\malloc.h" />
     <ClInclude Include="Memory\Memory_Pool.h" />
     <ClInclude Include="Memory\Mutex.h" />
