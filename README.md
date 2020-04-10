@@ -10,7 +10,7 @@
 
 所以严禁一次性new出数组,像这样是被严格禁止的:
 
-class TestObject : public NCCommon::TObject_pool<TestObject>
+class TestObject : public MPool::TObject_pool<TestObject>
 	
 new TestObject [xxx]
 
